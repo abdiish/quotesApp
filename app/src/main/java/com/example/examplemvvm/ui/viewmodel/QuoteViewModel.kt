@@ -7,16 +7,22 @@ import com.example.examplemvvm.data.model.QuoteModel
 import com.example.examplemvvm.data.model.QuoteProvider
 import com.example.examplemvvm.domain.GetQuotesUseCase
 import com.example.examplemvvm.domain.GetRandomQuoteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 // La clase extiende de ViewModel
-class QuoteViewModel: ViewModel() {
+@HiltViewModel
+class QuoteViewModel @Inject constructor(
+    private val getRandomQuoteUseCase: GetRandomQuoteUseCase,
+    private val getQuotesUseCase: GetQuotesUseCase
+): ViewModel() {
     // Se encapsula el modelo en un MutableLiveData
     val quoteModel = MutableLiveData<QuoteModel>()
     val isLoading = MutableLiveData<Boolean>()
 
-    var getQuoteUsecase = GetQuotesUseCase()
-    var getRandomQuoteUseCase = GetRandomQuoteUseCase()
+//    var getQuoteUsecase = GetQuotesUseCase()
+//    var getRandomQuoteUseCase = GetRandomQuoteUseCase()
 
     fun onCreate() {
         // realizar llamada a caso de uso
